@@ -1,0 +1,302 @@
+const API = "/api";
+
+let selectedPlan = "FREE";
+
+async function apiRequest(endpoint, data = null) {
+    const options = {
+        method: data ? "POST" : "GET",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        credentials: "same-origin"
+    };
+
+    if (data) {
+        options.body = JSON.stringify(data);
+    }
+
+    const response = await fetch(API + endpoint, options);
+    const result = await response.json();
+
+    if (!response.ok) {
+        throw new Error(result.message || "Something went wrong.");
+    }
+
+    return result;
+}
+
+// Select subscription plan
+function selectPlan(plan) {
+    selectedPlan = plan;
+
+    localStorage.setItem("billpatron_plan", plan);
+
+    alert("You selected the " + plan + " membership plan.");
+
+    document.getElementById("register").scrollIntoView({
+        behavior: "smooth"
+    });
+}
+
+// Registration
+document.getElementById("registerForm")
+.addEventListener("submit", async function(event) {
+
+    event.preventDefault();
+
+    const message = document.getElementById("registerMessage");
+
+    const form = new FormData(this);
+
+    const data = {
+        fullName: form.get("fullName"),
+        email: form.get("email"),
+        phone: form.get("phone"),
+        password: form.get("password")
+    };
+
+    message.textContent = "Creating your account...";
+
+    try {
+        const result = await apiRequest("/register", data);
+
+        message.textContent = result.message;
+
+        message.style.color = "green";
+
+        this.reset();
+
+        setTimeout(() => {
+            document.getElementById("login").scrollIntoView({
+                behavior: "smooth"
+            });
+        }, 1500);
+
+    } catch (error) {
+
+        message.textContent = error.message;
+        message.style.color = "red";
+
+    }
+
+});
+
+// Login
+document.getElementById("loginForm")
+.addEventListener("submit", async function(event) {
+
+    event.preventDefault();
+
+    const message = document.getElementById("loginMessage");
+
+    const form = new FormData(this);
+
+    const data = {
+        email: form.get("email"),
+        password: form.get("password")
+    };
+
+    message.textContent = "Logging in...";
+
+    try {
+
+        const result = await apiRequest("/login", data);
+
+        message.style.color = "green";
+
+        message.textContent =
+            "Welcome, " + result.user.fullName + "!";
+
+        this.reset();
+
+        showMemberDashboard(result.user);
+
+    } catch (error) {
+
+        message.style.color = "red";
+        message.textContent = error.message;
+
+    }
+
+});
+
+// Member dashboard
+function showMemberDashboard(user) {
+
+    let dashboard = document.getElementById("memberDashboard");
+
+    if (!dashboard) {
+
+        dashboard = document.createElement("section");
+
+        dashboard.id = "memberDashboard";
+
+        document.body.insertBefore(
+            dashboard,
+            document.querySelector("footer")
+        );
+
+    }
+
+    dashboard.innerHTML = `
+        <h2>Member Dashboard</h2>
+
+        <h3>Welcome, ${escapeHTML(user.fullName)}</h3>
+
+        <p>Email: ${escapeHTML(user.email)}</p>
+
+        <p>Selected Plan: ${escapeHTML(selectedPlan)}</p>
+
+        <h3>Submit Subscription Payment</h3>
+
+        <p>Pay using Pochi la Biashara:</p>
+
+        <h2>+254797181531</h2>
+
+        <form id="paymentForm">
+
+            <select id="paymentPlan" required>
+                <option value="FREE">FREE</option>
+                <option value="SILVER">SILVER - KSh 299</option>
+                <option value="GOLD">GOLD - KSh 599</option>
+                <option value="PLATINUM">PLATINUM - KSh 999</option>
+            </select>
+
+            <input
+                type="text"
+                id="transactionCode"
+                placeholder="M-Pesa Transaction Code"
+                required
+            >
+
+            <button type="submit">
+                Submit Payment
+            </button>
+
+            <p id="paymentMessage"></p>
+
+        </form>
+
+        <button id="logoutButton">
+            Logout
+        </button>
+    `;
+
+    document.getElementById("paymentPlan").value =
+        selectedPlan;
+
+    dashboard.scrollIntoView({
+        behavior: "smooth"
+    });
+
+    document.getElementById("paymentForm")
+    .addEventListener("submit", submitPayment);
+
+    document.getElementById("logoutButton")
+    .addEventListener("click", logoutMember);
+
+}
+
+// Submit payment
+async function submitPayment(event) {
+
+    event.preventDefault();
+
+    const message = document.getElementById("paymentMessage");
+
+    const plan = document.getElementById("paymentPlan").value;
+
+    const transactionCode =
+        document.getElementById("transactionCode").value.trim();
+
+    message.textContent = "Submitting payment...";
+
+    try {
+
+        const result = await apiRequest("/payments", {
+            plan,
+            transactionCode
+        });
+
+        message.style.color = "green";
+
+        message.textContent = result.message +
+            " Your payment is pending verification.";
+
+        document.getElementById("transactionCode").value = "";
+
+    } catch (error) {
+
+        message.style.color = "red";
+
+        message.textContent = error.message;
+
+    }
+
+}
+
+// Logout
+async function logoutMember() {
+
+    try {
+
+        await apiRequest("/logout", {});
+
+        document.getElementById("memberDashboard").remove();
+
+        alert("You have logged out successfully.");
+
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
+
+    } catch (error) {
+
+        alert(error.message);
+
+    }
+
+}
+
+// Protect displayed user information from HTML injection
+function escapeHTML(value) {
+
+    return String(value).replace(/[&<>"']/g, character => ({
+        "&": "&amp;",
+        "<": "&lt;",
+        ">": "&gt;",
+        '"': "&quot;",
+        "'": "&#039;"
+    })[character]);
+
+}
+
+// Restore an existing login session
+async function restoreSession() {
+
+    try {
+
+        const result = await apiRequest("/me");
+
+        showMemberDashboard(result.user);
+
+    } catch (error) {
+
+        console.log("No active member session.");
+
+    }
+
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+
+    const savedPlan = localStorage.getItem("billpatron_plan");
+
+    if (savedPlan) {
+        selectedPlan = savedPlan;
+    }
+
+    restoreSession();
+
+});
