@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>BILLPATRON | Your Bills. Someone's Generosity.</title>
+
+<meta name="description" content="BILLPATRON connects people facing financial difficulties with compassionate sponsors who help settle essential bills.">
+
+<link rel="stylesheet" href="/style.css">
+
+</head>
+
+<body>
+
+<header>
+    <div class="logo">
+        <span>🛡️</span>
+        <div>
+            <h2>BILLPATRON</h2>
+            <small>Your Bills. Someone's Generosity.</small>
+        </div>
+    </div>
+
+    <nav>
+        <a href="#home">Home</a>
+        <a href="#about">About</a>
+        <a href="#recipients">Recipients</a>
+        <a href="#donors">Donors</a>
+        <a href="#plans">Plans</a>
+        <a href="#login">Login</a>
+    </nav>
+</header>
+
+<section id="home" class="hero">
+
+    <h1>Your Bills.<br>Someone's Generosity.</h1>
+
+    <p>
+        A platform where compassion meets responsibility.
+        We connect individuals facing financial difficulties
+        with people willing to make a meaningful difference.
+    </p>
+
+    <a href="#register" class="button">
+        Get Started
+    </a>
+
+    <a href="#donors" class="button secondary">
+        Become a Donor
+    </a>
+
+</section>
+
+<section id="about">
+
+    <h2>About BILLPATRON</h2>
+
+    <p>
+        BILLPATRON is a bill-sponsorship platform designed
+        to connect individuals experiencing financial hardship
+        with compassionate sponsors.
+    </p>
+
+    <p>
+        Recipients can submit essential bills for verification,
+        while donors can browse verified requests and contribute
+        directly to the relevant service providers.
+    </p>
+
+    <h3>Our Mission</h3>
+
+    <p>
+        To make essential services more accessible through
+        transparency, generosity and responsible sponsorship.
+    </p>
+
+    <h3>Our Core Values</h3>
+
+    <p>
+        Integrity | Transparency | Generosity |
+        Accountability | Compassion
+    </p>
+
+</section>
+
+<section id="recipients">
+
+    <h2>For Bill Recipients</h2>
+
+    <p>
+        Are you struggling to settle an essential bill?
+        BILLPATRON gives you an opportunity to submit your
+        request for consideration by compassionate sponsors.
+    </p>
+
+    <h3>Supported Bill Categories</h3>
+
+    <ul>
+        <li>Electricity bills (KPLC)</li>
+        <li>Water bills</li>
+        <li>House rent</li>
+        <li>School fees</li>
+        <li>Hospital and healthcare bills</li>
+        <li>Internet bills</li>
+        <li>Other essential bills</li>
+    </ul>
+
+    <a href="#register" class="button">
+        Register as Recipient
+    </a>
+
+</section>
+
+<section id="donors">
+
+    <h2>For Sponsors and Donors</h2>
+
+    <p>
+        Your generosity can change someone's circumstances.
+        Discover verified essential bill requests and help
+        individuals and families meet their obligations.
+    </p>
+
+    <p>
+        Donors pay the relevant service providers directly.
+        BILLPATRON facilitates the connection and verification
+        process.
+    </p>
+
+    <a href="#register" class="button">
+        Join as a Donor
+    </a>
+
+    <p><strong>Donor membership is free.</strong></p>
+
+</section>
+
+<section id="plans">
+
+    <h2>Recipient Membership Plans</h2>
+
+    <p>Choose a membership plan that suits your needs.</p>
+
+    <div class="plans">
+
+        <div class="plan">
+            <h3>FREE</h3>
+            <h2>KSh 0</h2>
+            <p>Basic membership</p>
+            <button onclick="selectPlan('FREE')">
+                Choose Plan
+            </button>
+        </div>
+
+        <div class="plan">
+            <h3>SILVER</h3>
+            <h2>KSh 299</h2>
+            <p>Monthly membership</p>
+            <button onclick="selectPlan('SILVER')">
+                Choose Plan
+            </button>
+        </div>
+
+        <div class="plan featured">
+            <h3>GOLD</h3>
+            <h2>KSh 599</h2>
+            <p>Monthly membership</p>
+            <button onclick="selectPlan('GOLD')">
+                Choose Plan
+            </button>
+        </div>
+
+        <div class="plan">
+            <h3>PLATINUM</h3>
+            <h2>KSh 999</h2>
+            <p>Monthly membership</p>
+            <button onclick="selectPlan('PLATINUM')">
+                Choose Plan
+            </button>
+        </div>
+
+    </div>
+
+    <p>
+        Membership does not guarantee financial sponsorship.
+        All requests are subject to verification and consideration.
+    </p>
+
+</section>
+
+<section id="register">
+
+    <h2>Create Your Account</h2>
+
+    <form id="registerForm">
+
+        <input
+            type="text"
+            name="fullName"
+            placeholder="Full Name"
+            required
+        >
+
+        <input
+            type="email"
+            name="email"
+            placeholder="Email Address"
+            required
+        >
+
+        <input
+            type="tel"
+            name="phone"
+            placeholder="Phone Number"
+            required
+        >
+
+        <input
+            type="password"
+            name="password"
+            placeholder="Create Password (minimum 8 characters)"
+            minlength="8"
+            required
+        >
+
+        <button type="submit">Create Account</button>
+
+        <p id="registerMessage"></p>
+
+    </form>
+
+</section>
+
+<section id="login">
+
+    <h2>Member Login</h2>
+
+    <form id="loginForm">
+
+        <input
+            type="email"
+            name="email"
+            placeholder="Email Address"
+            required
+        >
+
+        <input
+            type="password"
+            name="password"
+            placeholder="Password"
+            required
+        >
+
+        <button type="submit">Login</button>
+
+        <p id="loginMessage"></p>
+
+    </form>
+
+</section>
+
+<section id="payment">
+
+    <h2>Subscription Payment</h2>
+
+    <p>
+        Payments are currently made through
+        Pochi la Biashara.
+    </p>
+
+    <h3>Payment Number</h3>
+
+    <h2>+254797181531</h2>
+
+    <p>
+        After making payment, submit your transaction
+        code through your member account.
+    </p>
+
+    <p>
+        Membership activation is subject to payment verification.
+    </p>
+
+</section>
+
+<section id="founder">
+
+    <h2>Founder's Message</h2>
+
+    <p>
+        BILLPATRON was founded with the belief that
+        generosity should be organised, transparent
+        and meaningful.
+    </p>
+
+    <h3>Joseph Maina Ndiritu</h3>
+
+    <p>Founder & Founder Director, BILLPATRON</p>
+
+</section>
+
+<footer>
+
+    <h2>BILLPATRON</h2>
+
+    <p>Your Bills. Someone's Generosity.</p>
+
+    <p>
+        Integrity. Transparency. Compassion.
+    </p>
+
+    <p>
+        © 2026 BILLPATRON. All Rights Reserved.
+    </p>
+
+    <p>Kenya | Building a Global Community of Generosity</p>
+
+</footer>
+
+<script src="/script.js"></script>
+
+</body>
+</html>
