@@ -1,0 +1,292 @@
+:root {
+    --navy: #071b38;
+    --blue: #123d70;
+    --gold: #d6ad48;
+    --white: #ffffff;
+    --light: #f3f6fa;
+    --text: #263449;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: var(--light);
+    color: var(--text);
+    line-height: 1.7;
+}
+
+header {
+    background: var(--navy);
+    color: white;
+    padding: 20px 6%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.logo span {
+    font-size: 35px;
+}
+
+.logo h2 {
+    color: var(--gold);
+    letter-spacing: 2px;
+}
+
+.logo small {
+    font-size: 11px;
+}
+
+nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 18px;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+nav a:hover {
+    color: var(--gold);
+}
+
+.hero {
+    min-height: 540px;
+    background: linear-gradient(
+        120deg,
+        #071b38,
+        #164879
+    );
+    color: white;
+    text-align: center;
+    padding: 120px 20px;
+}
+
+.hero h1 {
+    font-size: clamp(38px, 6vw, 65px);
+    line-height: 1.2;
+    color: var(--gold);
+    margin-bottom: 25px;
+}
+
+.hero p {
+    max-width: 700px;
+    margin: auto auto 35px;
+    font-size: 18px;
+}
+
+.button,
+button {
+    display: inline-block;
+    background: var(--gold);
+    color: var(--navy);
+    padding: 13px 25px;
+    border: none;
+    border-radius: 6px;
+    font-weight: bold;
+    text-decoration: none;
+    cursor: pointer;
+    margin: 8px 4px;
+    transition: 0.3s;
+}
+
+.button:hover,
+button:hover {
+    background: white;
+    transform: translateY(-2px);
+}
+
+.secondary {
+    background: transparent;
+    border: 2px solid var(--gold);
+    color: white;
+}
+
+section {
+    padding: 75px 8%;
+    text-align: center;
+}
+
+section h2 {
+    color: var(--navy);
+    font-size: 32px;
+    margin-bottom: 25px;
+}
+
+section h3 {
+    color: var(--blue);
+    margin: 20px 0 10px;
+}
+
+section p {
+    max-width: 850px;
+    margin: 12px auto;
+}
+
+ul {
+    display: inline-block;
+    text-align: left;
+    margin: 20px auto;
+    padding-left: 25px;
+}
+
+#about,
+#donors,
+#login,
+#founder {
+    background: white;
+}
+
+#recipients,
+#register,
+#payment {
+    background: var(--light);
+}
+
+.plans {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+    gap: 22px;
+    max-width: 1100px;
+    margin: 40px auto;
+}
+
+.plan {
+    background: white;
+    padding: 30px 20px;
+    border-radius: 12px;
+    border: 1px solid #e1e6ed;
+    box-shadow: 0 5px 18px rgba(0,0,0,0.06);
+    transition: 0.3s;
+}
+
+.plan:hover {
+    transform: translateY(-7px);
+}
+
+.plan h3 {
+    color: var(--navy);
+}
+
+.plan h2 {
+    color: var(--gold);
+    font-size: 32px;
+}
+
+.featured {
+    border: 2px solid var(--gold);
+}
+
+form {
+    max-width: 480px;
+    margin: 25px auto;
+    background: white;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.06);
+}
+
+input {
+    width: 100%;
+    padding: 15px;
+    margin: 10px 0;
+    border: 1px solid #d6dce5;
+    border-radius: 6px;
+    font-size: 15px;
+}
+
+input:focus {
+    outline: 2px solid var(--gold);
+    border-color: transparent;
+}
+
+form button {
+    width: 100%;
+    margin: 15px 0 0;
+}
+
+#registerMessage,
+#loginMessage {
+    font-weight: bold;
+    margin-top: 15px;
+}
+
+#payment {
+    background: var(--navy);
+    color: white;
+}
+
+#payment h2,
+#payment h3 {
+    color: var(--gold);
+}
+
+#payment h2 {
+    font-size: 35px;
+}
+
+#founder {
+    border-top: 4px solid var(--gold);
+}
+
+footer {
+    background: #041226;
+    color: white;
+    text-align: center;
+    padding: 45px 20px;
+}
+
+footer h2 {
+    color: var(--gold);
+    letter-spacing: 3px;
+    margin-bottom: 15px;
+}
+
+footer p {
+    margin: 8px;
+    font-size: 14px;
+}
+
+@media (max-width: 768px) {
+
+    header {
+        justify-content: center;
+        text-align: center;
+    }
+
+    nav {
+        justify-content: center;
+    }
+
+    .hero {
+        padding: 90px 20px;
+    }
+
+    section {
+        padding: 55px 6%;
+    }
+
+    section h2 {
+        font-size: 27px;
+    }
+}
